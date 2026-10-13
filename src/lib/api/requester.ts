@@ -1,15 +1,15 @@
 import type { ApiError, EndpointConfig, RequestOptions } from "./types";
 
+const DEFAULT_API_URL = "https://dummyjson.com";
+
 export async function requester<T = unknown>(
   endpoint: EndpointConfig,
   options: RequestOptions = {},
 ): Promise<{ data: T; ok: true }> {
   const { url, method } = endpoint;
   const isAbsolute = /^https?:\/\//.test(url);
-  const apiUrl = isAbsolute ? "" : process.env.NEXT_PUBLIC_API_URL;
-  if (apiUrl === undefined) {
-    throw new Error("API URL is not configured");
-  }
+  // .env.local is git-ignored, so a deploy without NEXT_PUBLIC_API_URL must not break every request.
+  const apiUrl = isAbsolute ? "" : (process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL);
 
   const { body, headers: extraHeaders } = options;
 
