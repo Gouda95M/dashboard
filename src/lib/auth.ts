@@ -1,4 +1,9 @@
-import type { ApiUser } from "@/lib/users";
+export type SessionRole = "admin" | "moderator" | "user";
+
+/** Shape returned by DummyJSON GET /user/me (only the fields we use). */
+export type MeResponse = Pick<LoginResponse, "id" | "username" | "email" | "firstName" | "lastName"> & {
+  role: SessionRole;
+};
 
 export type LoginResponse = {
   id: number;
@@ -16,7 +21,7 @@ export type Session = Pick<
   LoginResponse,
   "id" | "username" | "email" | "firstName" | "lastName" | "accessToken"
 > & {
-  role?: ApiUser["role"];
+  role?: SessionRole;
 };
 
 export const toSession = ({

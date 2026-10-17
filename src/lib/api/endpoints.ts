@@ -13,18 +13,13 @@ export const endpoints = {
     list: { url: "https://fakestoreapi.noksha.dev/api/orders", method: "GET" } satisfies EndpointConfig,
   },
   users: {
-    // GET https://dummyjson.com/users?limit=0&select=...
-    list: {
-      url: "/users?limit=0&select=firstName,lastName,email,phone,role,company",
-      method: "GET",
-    } satisfies EndpointConfig,
-    // GET https://dummyjson.com/users?limit=0&select=firstName,lastName  (names only, to label orders)
-    names: { url: "/users?limit=0&select=firstName,lastName", method: "GET" } satisfies EndpointConfig,
-    // POST https://dummyjson.com/users/add  (simulated: responds with the new user, nothing is persisted)
+    // GET https://fakestoreapi.noksha.dev/api/users  ->  { data: UserDetail[], totalUsers, ... }
+    list: { url: "https://fakestoreapi.noksha.dev/api/users", method: "GET" } satisfies EndpointConfig,
+    // POST https://dummyjson.com/users/add  (registration only; simulated, nothing is persisted)
     add: { url: "/users/add", method: "POST" } satisfies EndpointConfig,
-    // GET https://dummyjson.com/users/:id
+    // GET https://fakestoreapi.noksha.dev/api/users/:id
     detail: (id: string): EndpointConfig => ({
-      url: `/users/${encodeURIComponent(id)}`,
+      url: `https://fakestoreapi.noksha.dev/api/users/${encodeURIComponent(id)}`,
       method: "GET",
     }),
   },

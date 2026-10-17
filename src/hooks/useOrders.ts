@@ -4,27 +4,21 @@ import { useMemo } from "react";
 import { useRequester } from "@/hooks/useRequester";
 import { endpoints } from "@/lib/api/endpoints";
 import { toOrder, type OrdersResponse } from "@/lib/orders";
-
-type NamesResponse = {
-  users: { id: number; firstName: string; lastName: string }[];
-};
+import type { UsersResponse } from "@/lib/users";
 
 export function useOrders() {
   const orders = useRequester<OrdersResponse>({
     request: { endpoint: endpoints.orders.list },
   });
-  const names = useRequester<NamesResponse>({
-    request: { endpoint: endpoints.users.names },
+  const names = useRequester<UsersResponse>({
+    request: { endpoint: endpoints.users.list },
     showErrorToast: false,
   });
 
   const data = useMemo(() => {
     if (!orders.data) return undefined;
     const lookup = new Map(
-      (names.data?.users ?? []).map((u) => [
-        u.id,
-        `${u.firstName} ${u.lastName}`,
-      ]),
+      (names.data?.data ?? []).map((u) => [u._id, u.name]),
     );
     return orders.data.data.map((o) => toOrder(o, lookup));
   }, [orders.data, names.data]);

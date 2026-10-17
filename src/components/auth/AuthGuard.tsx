@@ -5,15 +5,14 @@ import { useEffect, type ReactNode } from "react";
 import { useRequester } from "@/hooks/useRequester";
 import { endpoints } from "@/lib/api/endpoints";
 import type { ApiError } from "@/lib/api/types";
-import { bearer, isLocalSession, type Session } from "@/lib/auth";
+import { bearer, isLocalSession, type MeResponse, type Session } from "@/lib/auth";
 import { notify } from "@/lib/notifications";
-import type { UserDetail } from "@/lib/users";
 import { useAppDispatch, useSession } from "@/store/hooks";
 import { clearSession, setSession } from "@/store/authSlice";
 
 function SessionValidator({ session }: { session: Session }) {
   const dispatch = useAppDispatch();
-  useRequester<UserDetail>({
+  useRequester<MeResponse>({
     request: {
       endpoint: endpoints.auth.me,
       options: { headers: bearer(session) },

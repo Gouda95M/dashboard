@@ -23,7 +23,7 @@ const features: { title: string; status?: Status; points: string[] }[] = [
     title: "Users",
     status: "Live API",
     points: [
-      "Users list and user detail pages load from DummyJSON (/users, /users/:id) with loading and retry states.",
+      "Users list and user detail pages load from fakestoreapi.noksha.dev (/api/users, /api/users/:id) with loading and retry states.",
       "Add user posts to /users/add before the row appears; edit and delete update local state only (the API is read-only for these).",
     ],
   },
@@ -31,7 +31,7 @@ const features: { title: string; status?: Status; points: string[] }[] = [
     title: "Orders, overview and analytics",
     status: "Live API",
     points: [
-      "Orders load from the fakestoreapi.noksha.dev orders API; customer names are resolved from the DummyJSON users API.",
+      "Orders load from the fakestoreapi.noksha.dev orders API; customer names are resolved from the same users API.",
       "Overview and Analytics are computed from those orders: revenue, average order value, delivery rate, daily revenue, status breakdown, top products and top customers.",
       "Orders support add, edit and delete in local state (the API is read-only), with stats recalculated from the current rows.",
     ],
